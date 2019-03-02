@@ -330,7 +330,7 @@ a {
 	height: 500px;
 	background-color: skyblue;
 	border-radius: 3px;
-	background-image: url('b.jpeg');
+	background-image: url('../assets/b.jpeg');
 	border-radius: 3px;
 }
 
