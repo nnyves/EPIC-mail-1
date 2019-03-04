@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Edit Profile</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+<div class="main">
+<section>
+<div class="header-container">
+<header>
+    <div class="navBar"><a href="inbox.html">
+        <div class="logo">
+	        <h1>EPIC mail</h1>
+    	</div></a>
+    	<nav>
+	        <ul>
+		        <li><a href="inbox.html">chat</a></li>
+			    <li class="current"><a href="profile.html">Profile</a></li>
+				<li><a href="about.html">about</a></li>
+				<li><a href="admin-Dboard.html">dashboard</a></li>
+			    <li><a href="../index.html">Logout</a></li>
+		    </ul>
+	    </nav>
+    </div>
+</header>
+</div>
+</section>
+
+<section>
+	<div class="edit-container">
+		<div class="panel">
+			<div class="panel-title">
+				<h2>Edit Profile</h2>
+			</div>
+			<div class="panel-body">
+                <div class="row">
+                    <label>profile picture</label></br>
+                    <input type="file" name="fileToUpload" class="image-input" id="profilePicture">
+                </div>
+				<div class="row">
+					<label>Name</label>
+					<input type="text" name="name" value="Nsabi Emanuel" class="form-input" required>
+				</div>
+				<div class="row">
+					<label>Email</label>
+					<input type="email" name="email" value="nsabi@gmail.com" class="form-input" required>
+				</div>
+                <div class="row">
+					<label>password</label>
+					<input type="text" name="password"  value="Nsabi12234@" class="form-input" required>
+				</div>
+				<div class="row"><a href="inbox.html">
+                    <button class="btn">Done</button></a>
+                </div>
+			</div>
+		</div>
+        </div>
+    </section>
+    <section>
+    <div>
+    <footer class="footer-edit">
+    <p>EPIC mail , Copyright © 2019</p>
+    </footer id="footer-about">
+    </div>
+    </section>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
