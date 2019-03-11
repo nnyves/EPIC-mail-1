@@ -1,4 +1,4 @@
-import Joi from 'joi';
+
 import Auth from '../helpers/user';
 import User from '../models/user';
 
@@ -25,7 +25,7 @@ const UserController = {
         const token = Auth.generateToken(req.body.email);
         const user = User.login(data);
         if(!user) {
-            return res.status(400).send({message : 'user not registered'})
+            return res.status(400).send({'message' : 'user not registered'})
         }
         return res.status(200).send({
             status : 200,
