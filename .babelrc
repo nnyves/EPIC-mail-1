@@ -3,7 +3,7 @@
 {
     "presets" : [["env", {
         "targets" : {
-            "node" : "11.11.0"
+            "node" : "10.14.1"
         }
     }]
     ]
