@@ -52,7 +52,7 @@ describe('POST/ user', () => {
                 type: "user",
             })
 
-            end((err, req) => {
+            end((err, res) => {
                 console.log(res.body);
                 expect(res.body).to.be.an("object");
                 expect(res.status).to.equal(200);
