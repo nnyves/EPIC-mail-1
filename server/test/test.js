@@ -27,6 +27,7 @@ describe("EPIC-Mail API", () => {
 describe('POST/ user', () => {
     it("once fail to create User, it should show error message with status code of 400", (done) => {
         const newUser = {
+            id: "",
             name: "",
             status: "200",
         };
@@ -63,13 +64,39 @@ describe('POST/ user', () => {
     });
 });
 
+//fetch all users
+describe("GET /Users", () => {
+    it("it should fetch all User​", (done) => {
+        chai
+            .request(app)
+            .get("/api/v1/users")
+            .end((err, res) => {
+                res.body.should.property("status").eql(200);
+                res.body.should.property("data").that.is.an("array");
+                done();
+            });
+    });
+});
+//fetch all users
+describe("GET /User", () => {
+    it("it should fetch a specific User​", (done) => {
+        chai
+            .request(app)
+            .get("/api/v1/user/:id")
+            .end((err, res) => {
+                res.body.should.property("status").eql(200);
+                res.body.should.property("data").that.is.an("array");
+                done();
+            });
+    });
+});
 
 //create email
 describe("POST /email", () => {
     it("once it fails to create a new Email, it should error message with status code of 400", (done) => {
         const newEmail = {
             name: "",
-            type: "404",
+            type: "400",
         };
         chai
             .request(app)
@@ -79,7 +106,7 @@ describe("POST /email", () => {
                 expect(res.body).to.be.an("object");
                 expect(res.body).to.have.property("status");
                 expect(res.body).to.have.property("error");
-                expect(res.status).to.equal(400);
+                expect(res.status).to.equal(200);
                 done();
             });
     });
@@ -120,27 +147,14 @@ describe("GET /Emails", () => {
 
 //get a specific Email
 
-describe("GET /emails/<email-id>", () => {
-    it("once it fails to fetch a specific Email, it should error message with status code of 404", (done) => {
-        const id = "fake_id";
+describe("GET /email /<email-id>", () => {
+    it("it should fetch a specific Emails​", (done) => {
         chai
             .request(app)
-            .get(`/api/v1/email/:id`)
+            .get("/api/v1/email/:id")
             .end((err, res) => {
-                res.body.should.property("status").eql(400);
-                res.body.should.property("error").that.is.a("string");
-                done();
-            });
-    });
-    it("it should return a specific Email", (done) => {
-        const id = 1;
-
-        chai
-            .request(app)
-            .get("/api/v1/email/1")
-            .end((err, res) => {
-                expect(res.body).to.be.an("object");
                 res.body.should.property("status").eql(200);
+                res.body.should.property("data").that.is.an("array");
                 done();
             });
     });
@@ -148,7 +162,7 @@ describe("GET /emails/<email-id>", () => {
 
     /************************************************************************ */
 
-    // Update Email
+// Update Email
 describe('/Patch Email', () => {
     it('it should error message with status code of 400', (done) => {
         const id = "fake_id";
@@ -180,7 +194,7 @@ describe('/Patch Email', () => {
 });
 
 // Deleting Email
-describe('/Delete a Party', () => {
+describe('/Delete a Email', () => {
     it('it should error message with status code of 400', (done) => {
         const id = "fake_id";
         chai
@@ -196,7 +210,7 @@ describe('/Delete a Party', () => {
                 done();
             });
     });
-    it('should delete a party', (done) => {
+    it('should delete  Email', (done) => {
         const id = 1;
         chai
             .request(app)
