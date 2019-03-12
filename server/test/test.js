@@ -163,7 +163,7 @@ describe("GET /email /<email-id>", () => {
     /************************************************************************ */
 
 // Update Email
-describe('/Patch Email', () => {
+describe('update /Email', () => {
     it('it should error message with status code of 400', (done) => {
         const id = "fake_id";
         chai
@@ -193,6 +193,7 @@ describe('/Patch Email', () => {
     });
 });
 
+
 // Deleting Email
 describe('/Delete a Email', () => {
     it('it should error message with status code of 400', (done) => {
@@ -201,8 +202,10 @@ describe('/Delete a Email', () => {
             .request(app)
             .put(`/api/v1/email/:id`)
             .send({
-                name: "",
-                type: "email",
+            parentMessageId: "31",
+            subject: "request",
+            message: "this is my message",
+            status: "sent",
             })
             .end((err, res) => {
                 res.should.have.status(400);
@@ -211,14 +214,34 @@ describe('/Delete a Email', () => {
             });
     });
     it('should delete  Email', (done) => {
-        const id = 1;
+        const id = uuid;
         chai
             .request(app)
-            .delete('/api/v1/email/1')
+            .delete('/api/v1/email/:id')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 done();
             });
+    });
+});
+
+
+
+describe('/POST / login user', () => {
+    // first you have to log in to get a token
+    it('Log in to obtain the token ', (done) => {
+      chai.request(app)
+        .post('/api/v1/login')
+        .send({
+          email: 'abc@andela.com',
+          password: 'this is me',
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          token = res.body.token;
+          done();
+        });
     });
 });

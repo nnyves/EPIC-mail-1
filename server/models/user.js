@@ -21,7 +21,7 @@ class User {
     }
 
     login(data) {
-        return this.users.find(user => user.email === data.email);
+        return this.users.find(ser => user.email === data.email);
     }
     findUser(id) {
         return this.users.find(user => user.id === id);

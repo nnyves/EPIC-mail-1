@@ -18,7 +18,6 @@ class Email {
             parentMessageId: data.parentMessageId || '',
             subject: data.subject || '',
             message: data.message || '',
-            //receiver:data.receiver || '',
             status: data.status || '',
             createdOn: moment.now(),
             modifiedDate: moment.now(),
