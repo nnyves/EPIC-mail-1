@@ -8,7 +8,6 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-
 app.post('/api/v1/users', User.create);
 app.post('/api/v1/login', User.login);
 app.get('/api/v1/users', User.getAll);
