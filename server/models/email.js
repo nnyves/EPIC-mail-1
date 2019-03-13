@@ -5,7 +5,43 @@ class Email {
     /**@param {object} data */
 
     constructor() {
-        this.emails = [];
+        this.emails = [
+            
+                {
+                    "id": "e3a8d317-fde3-4950-b507-4d590179cefc",
+                    "parentMessageId": "1234",
+                    "subject": 123,
+                    "message": " this is my new email",
+                    "status": "sent",
+                    "createdDate": "March 13, 2019",
+                    "modifiedDate": "March 13, 2019"
+                },
+            
+
+            
+                {
+                    "id": "66c81bab-7abb-43f7-94e3-9ceac96dce10",
+                    "parentMessageId": "567",
+                    "subject": "test",
+                    "message": " this is testing email",
+                    "status": "received",
+                    "createdDate": "March 13, 2019",
+                    "modifiedDate": "March 13, 2019"
+                },
+            
+            
+            
+                {
+                    "id": "2161fc38-45dd-4daf-8a52-db6f41b4e48e",
+                    "parentMessageId": "567",
+                    "subject": "hello",
+                    "message": "its me you looking for",
+                    "status": "unreaded",
+                    "createdDate": "March 13, 2019",
+                    "modifiedDate": "March 13, 2019"
+                }
+            
+        ];
     }
 
     /**@return {object} user object
@@ -19,8 +55,8 @@ class Email {
             subject: data.subject || '',
             message: data.message || '',
             status: data.status || '',
-            createdOn: moment.now(),
-            modifiedDate: moment.now(),
+            createdDate: moment().format('LL'),
+            modifiedDate: moment().format('LL'),
         };
         this.emails.push(newEmail);
         return newEmail;
@@ -51,12 +87,11 @@ class Email {
         const email = this.findEmail(id);
         const index = this.email.indexOf(email);
         this.emails[index].parentMessageId = data['parentMessageId'] || email.parentMessageId;
-        this.emails[index].createdOn = data['createdOn']  || email.createdOn;
         this.emails[index].subject = data['subject'] || email.subject;
         this.emails[index].message = data['message'] || email.message;
-        this.emails[index].receiver = data['receiver'] || email.receiver;
         this.emails[index].status = data['status'] || email.status;
-        this.emails[index].modifiedDate = moment.now()
+        this.emails[index].createdOn = moment().format('LL');
+        this.emails[index].modifiedDate = moment().format('LL');
         return this.emails[index];
     }
 

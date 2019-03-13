@@ -1,4 +1,5 @@
 import Email from '../models/email';
+import Joi from 'joi';
 
 
 
@@ -7,16 +8,22 @@ const EmailController = {
 
 
     create(req, res) {
-        if (!req.body.subject && !req.body.message) {
-            return res.status(404).send({
-                status : 404,
-                'message':'all field are required'
-                })
+
+        const schema = {
+            subject: Joi.required(),
+            message: Joi.required(),
+            parentMessageId: Joi.number().required(),
+            status: Joi.string().required(),
+        };
+        const result = Joi.validate(req.body, schema);
+ 
+        if (result.error) {
+            return res.status(400).send(result.error.details[0].message);
         }
         const email = Email.create(req.body);
         return res.status(200).send({
             status : 200,
-            'message' : 'user has been successfull created',
+            'message' : 'Email has been successfull created',
             data : [{email}]
         });
     },
@@ -28,7 +35,7 @@ const EmailController = {
             return res.status(404).send({
                 status : 404,
                 'message': 'no email yet'
-            })
+            });
         }
         return res.status(200).send({
             status : 200,

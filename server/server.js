@@ -20,10 +20,10 @@ app.post('/api/v1/email',Email.create);
 app.get('/api/v1/emails', Email.getAll);
 app.get('/api/v1/email/:id', Email.getEmail);
 app.delete('/api/v1/email/:id', Email.delete);
-app.put('/api/v1/emails/:id', Email.update);
+app.put('/api/v1/email/:id', Email.update);
 app.get('/api/v1/emails/status/:status', Email.getStatusEmail);
 
-const port = process.env.Port || 5000;
+const port = process.env.Port || 8000;
 
 app.listen(port, () => {
     console.log(`Server started on port`);

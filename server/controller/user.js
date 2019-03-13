@@ -1,16 +1,24 @@
 
 import Auth from '../helpers/user';
 import User from '../models/user';
+import Joi from 'joi';
 
 const UserController = {
 
     create(req, res) {
-        if (!req.body.firstName && !req.body.lastName && !req.body.email) {
-            return res.status(400).send({
-                status : 400,
-                'message': 'All fields are required',
-                })
-        }
+
+        const schema = {
+            firstName: Joi.string().min(3).required(),
+            lastName: Joi.string().min(3).required(),
+            email: Joi.string().required(),
+            password: Joi.required(),
+        };
+        const result = Joi.validate(req.body, schema);
+ 
+        if (result.error) {
+            return res.status(400).send(result.error.details[0].message);
+        };
+
         const token = Auth.generateToken(req.body.id);
         const user = User.create(req.body);
         return res.status(200).send({
@@ -37,7 +45,7 @@ const UserController = {
             status : 200,
             message : 'you have successfully logged in',
             token : token,
-            user : user,
+            data : user,
         });
     },
 
@@ -60,7 +68,8 @@ const UserController = {
         }
         return res.status(200).send({
             status : 200,
-            data :users,});
+            data :user
+            });
     },
 
 
@@ -70,8 +79,19 @@ const UserController = {
             return res.status(404).send({
                 status : 404,
                 'message': 'user not found'
-            })
+            });
         }
+        const schema = {
+            firstName: Joi.string().min(3).required(),
+            lastName: Joi.string().min(3).required(),
+            email: Joi.string().required(),
+            password: Joi.required(),
+        };
+        const result = Joi.validate(req.body, schema);
+ 
+        if (result.error) {
+            return res.status(400).send(result.error.details[0].message);
+        };
         return res.status(200).send({
             status : 200,
             data :users,});
