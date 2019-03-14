@@ -14,7 +14,7 @@ class User {
                 "createdDate": "March 13, 2019",
                 "modifiedDate": "March 13, 2019"
             },
-            
+
             {
                 "id": "b661af63-d83c-48c5-9a10-ed33ddd9c2a8",
                 "firstName": "123",

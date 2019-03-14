@@ -1,4 +1,3 @@
-
 import Auth from '../helpers/user';
 import User from '../models/user';
 import Joi from 'joi';
