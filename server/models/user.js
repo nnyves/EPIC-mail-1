@@ -39,9 +39,9 @@ class User {
         this.users.push(newUser);
         return newUser
     }
-    
+
     login(data) {
-        return this.users.find(user => user.email === data.email && user.password === data.password);
+        return  this.users.find(user => user.email === data.email);
     }
     findUser(id) {
         return this.users.find(user => user.id === id);

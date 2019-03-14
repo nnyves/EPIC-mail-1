@@ -1,6 +1,6 @@
 
 import jwt from 'jsonwebtoken';
-import SECRET from '../../env';
+import SECRET from '../../secret';
 
 const Helper = {
 

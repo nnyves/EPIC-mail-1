@@ -21,6 +21,7 @@ describe('POST/ user', () => {
             .post("/api/v1/users")
             .send(newUser)
             .end((err, res) => {
+                console.log(res.body.data[0].user.id);
                 res.body.should.have.property('status');
                 done();
             });
@@ -251,10 +252,9 @@ describe('/Delete a User', () => {
 // Deleting Email
 describe('/Delete a Email', () => {
     it('it should delete Email', (done) => {
-        const id = "fake_id";
         chai
             .request(app)
-            .delete("/api/v1/email/e3a8d317-fde3-4950-b507-4d590179cefc")
+            .delete("/api/v1/email/1")
             .send({
 
             })

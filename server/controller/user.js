@@ -13,7 +13,7 @@ const UserController = {
             password: Joi.required(),
         };
         const result = Joi.validate(req.body, schema);
- 
+
         if (result.error) {
             return res.status(400).send(result.error.details[0].message);
         };
@@ -33,19 +33,30 @@ const UserController = {
     login(req, res) {
         const data = req.body;
         const token = Auth.generateToken(req.body.email);
-        const user = User.login(data);//
-        if(!user) {
+        const user = User.login(data);
+
+        if(user) {
+            if (user.password !== req.body.password)
+                return res.status(400).send({
+                    status : 400,
+                    'message' : 'incorrect password'
+            });
+            else{
+                return res.status(200).send({
+                    status : 200,
+                    message : 'incorrect password or email',
+                    token : token,
+                    data : user,
+                });
+            }
+        }
+        else{
             return res.status(404).send({
                 status : 404,
                 'message' : 'user not registered'
             })
         }
-        return res.status(200).send({
-            status : 200,
-            message : 'you have successfully logged in',
-            token : token,
-            data : user,
-        });
+
     },
 
 
