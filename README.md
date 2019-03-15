@@ -19,8 +19,8 @@
 
 ## API ENDPOINTS
 
-|  URL |USE
-| ------- |
+|  URL |USE |
+| ------- |-------|
 | POST:   /api/v1/users|  Get the user to Signup |
 | POST:   /api/v1/login | Get the user to Login |
 | GET:    /api/v1/users |  Get all Users |
