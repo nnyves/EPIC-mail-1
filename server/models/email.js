@@ -6,41 +6,47 @@ class Email {
 
     constructor() {
         this.emails = [
-            
+
                 {
                     "id": "e3a8d317-fde3-4950-b507-4d590179cefc",
                     "parentMessageId": "1234",
                     "subject": 123,
                     "message": " this is my new email",
                     "status": "sent",
+                    "senderId" : 1,
+                    "receiverId" :2,
                     "createdDate": "March 13, 2019",
                     "modifiedDate": "March 13, 2019"
                 },
-            
 
-            
+
+
                 {
                     "id": "66c81bab-7abb-43f7-94e3-9ceac96dce10",
                     "parentMessageId": "567",
                     "subject": "test",
                     "message": " this is testing email",
                     "status": "received",
+                    "senderId" : 1,
+                    "receiverId" :2,
                     "createdDate": "March 13, 2019",
                     "modifiedDate": "March 13, 2019"
                 },
-            
-            
-            
+
+
+
                 {
                     "id": "2161fc38-45dd-4daf-8a52-db6f41b4e48e",
                     "parentMessageId": "567",
                     "subject": "hello",
                     "message": "its me you looking for",
                     "status": "unreaded",
+                    "senderId" : 1,
+                    "receiverId" :2,
                     "createdDate": "March 13, 2019",
                     "modifiedDate": "March 13, 2019"
                 }
-            
+
         ];
     }
 
@@ -55,6 +61,8 @@ class Email {
             subject: data.subject || '',
             message: data.message || '',
             status: data.status || '',
+            "senderId" : data.senderId || '',
+            "receiverId" : data.receiverId || '',
             createdDate: moment().format('LL'),
             modifiedDate: moment().format('LL'),
         };
@@ -63,26 +71,23 @@ class Email {
     }
 
 
-    /**
- * @param {uuid} id
- * @param {object} user object
- */
+    // find a specific email by Id.
     findEmail(id) {
         return this.emails.find(email => email.id === id);
     }
-    /**
-    * return {object} return all users
-    */
 
+    //find email by status
+    getStatusEmail(status) {
+        return this.emails.find(stat => stat.status === status);
+    }
+
+    //find all email uou have in the system.
     findAll() {
         return this.emails;
     }
 
-    /**
-    * @param {uuid} id
-    * @param {object} data
-    */
 
+    //update a specific email
     update(id, data) {
         const email = this.findEmail(id);
         const index = this.email.indexOf(email);
@@ -95,13 +100,7 @@ class Email {
         return this.emails[index];
     }
 
-    getStatusEmail(status) {
-        return this.emails.find(stat => stat.status === status);
-    }
-
-    /**
-    * @param {uuid} id
-    */
+    // delete email
 
     delete(id) {
         const email = this.findEmail(id);
@@ -109,7 +108,6 @@ class Email {
         this.emails.splice(index, 1);
         return {};
     }
-
 }
 
 export default new Email();

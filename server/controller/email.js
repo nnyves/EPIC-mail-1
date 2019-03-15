@@ -16,7 +16,7 @@ const EmailController = {
             status: Joi.string().required(),
         };
         const result = Joi.validate(req.body, schema);
- 
+
         if (result.error) {
             return res.status(400).send(result.error.details[0].message);
         }
@@ -43,7 +43,7 @@ const EmailController = {
         });
     },
 
-
+    //find a specific email
     getEmail(req, res) {
         const email = Email.findEmail(req.params.id);
         if (!email){
@@ -57,8 +57,7 @@ const EmailController = {
             data : [{email}]
         });
     },
-
-
+    //update a specific email
     update(req, res) {
         const email = Email.findEmail(req.param.id);
         if (!email) {
@@ -74,15 +73,20 @@ const EmailController = {
             data : [{updatedEmail}]
     });
     },
-
+    //getting email by status
     getStatusEmail(req, res) {
         const statusEmail = Email.getStatusEmail(req.params.status);
-        res.status(200).send({
-            status : 200,
-            data : statusEmail,
+        if (statusEmail.status === "sent"){
+            return res.status(404).send({
+                status : 200,
+                data : [{statusEmail}]
+            });
+        }
+        return res.status(200).send({
+            status : 404,
+            'message' : 'this is not email'
         })
     },
-
     delete(req, res) {
         const email = Email.findEmail(req.params.id);
         if (!email) {
