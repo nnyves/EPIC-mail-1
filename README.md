@@ -19,13 +19,12 @@
 
 ## API ENDPOINTS
 
-|  URL |USE |
+|  URL |USE TO |
 | ------- |-------|
 | POST:   /api/v1/users|  Get the user to Signup |
 | POST:   /api/v1/login | Get the user to Login |
 | GET:    /api/v1/users |  Get all Users |
 | GET:    /api/v1/user/:id | Get a specific User |
-
 | POST:   /api/v1/email|  Compose an Emails |
 | GET:    /api/v1/emails|  Get all Emails |
 | GET:    /api/v1/email/:id |  Get a specific Email |
