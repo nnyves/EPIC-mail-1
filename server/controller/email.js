@@ -57,6 +57,7 @@ const EmailController = {
             data : [{email}]
         });
     },
+
     //update a specific email
     update(req, res) {
         const email = Email.findEmail(req.param.id);
@@ -76,7 +77,10 @@ const EmailController = {
     //getting email by status
     getStatusEmail(req, res) {
         const statusEmail = Email.getStatusEmail(req.params.status);
+
         if (statusEmail.status === "sent"){
+
+        if (statusEmail){
             return res.status(404).send({
                 status : 200,
                 data : [{statusEmail}]
@@ -85,8 +89,10 @@ const EmailController = {
         return res.status(200).send({
             status : 404,
             'message' : 'this is not email'
-        })
-    },
+        });
+    }
+},
+
     delete(req, res) {
         const email = Email.findEmail(req.params.id);
         if (!email) {

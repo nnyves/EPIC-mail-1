@@ -198,6 +198,7 @@ describe("GET /email /<email-id>", () => {
             });
     });
     it("once fail to fetch s specific email", (done) => {
+
         chai
             .request(app)
             .get("/api/v1/email/10")
@@ -255,6 +256,7 @@ describe('update /Email', () => {
 
 //Deleting Email
 describe('Delete a Email', () => {
+
     it('it should delete Email', (done) => {
         chai
             .request(app)

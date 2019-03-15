@@ -52,6 +52,5 @@ class User {
     findAll() {
         return this.users;
     }
-
 }
 export default new User();
