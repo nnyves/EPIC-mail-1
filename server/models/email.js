@@ -1,5 +1,6 @@
 import moment from 'moment';
 import uuid from 'uuid';
+import {sendToCoveralls} from 'coveralls'
 
 class Email {
     /**@param {object} data */
@@ -13,6 +14,8 @@ class Email {
                     "subject": 123,
                     "message": " this is my new email",
                     "status": "sent",
+                    "senderId" : 1,
+                    "receiverId" :2,
                     "createdDate": "March 13, 2019",
                     "modifiedDate": "March 13, 2019"
                 },
@@ -25,6 +28,8 @@ class Email {
                     "subject": "test",
                     "message": " this is testing email",
                     "status": "received",
+                    "senderId" : 1,
+                    "receiverId" :2,
                     "createdDate": "March 13, 2019",
                     "modifiedDate": "March 13, 2019"
                 },
@@ -37,6 +42,8 @@ class Email {
                     "subject": "hello",
                     "message": "its me you looking for",
                     "status": "unreaded",
+                    "senderId" : 1,
+                    "receiverId" :2,
                     "createdDate": "March 13, 2019",
                     "modifiedDate": "March 13, 2019"
                 }
@@ -55,6 +62,8 @@ class Email {
             subject: data.subject || '',
             message: data.message || '',
             status: data.status || '',
+            "senderId" : data.senderId || '',
+            "receiverId" : data.receiverId || '',
             createdDate: moment().format('LL'),
             modifiedDate: moment().format('LL'),
         };
@@ -63,26 +72,33 @@ class Email {
     }
 
 
-    /**
- * @param {uuid} id
- * @param {object} user object
- */
+    // find a specific email by Id.
     findEmail(id) {
         return this.emails.find(email => email.id === id);
     }
-    /**
-    * return {object} return all users
-    */
 
+    //find email by status
+    getStatusEmail(status) {
+        return this.emails.find(stat => stat.status === status);
+    }
+
+    /*/find Email by receiverId
+    findReceiver(id) {
+    return this.emails.find(receiver => receiver.receiverId === receiverId);
+    }
+    //find Email by sender
+    findSender(id) {
+        return this.emails.find(sender => sender.senderId === senderId)
+    }*/
+
+
+    //find all email uou have in the system.
     findAll() {
         return this.emails;
     }
 
-    /**
-    * @param {uuid} id
-    * @param {object} data
-    */
 
+    //update a specific email
     update(id, data) {
         const email = this.findEmail(id);
         const index = this.email.indexOf(email);
@@ -95,20 +111,16 @@ class Email {
         return this.emails[index];
     }
 
-    getStatusEmail(status) {
-        return this.emails.find(stat => stat.status === status);
-    }
 
-    /**
-    * @param {uuid} id
-    */
+
+    /* delete email
 
     delete(id) {
         const email = this.findEmail(id);
         const index = this.emails.indexOf(email);
         this.emails.splice(index, 1);
         return {};
-    }
+    }*/
 
 }
 

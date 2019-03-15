@@ -83,6 +83,8 @@ const UserController = {
     },
 
 
+    /*
+
     update(res, req) {
         const user = User.findUser(req.param.id);
         if (!user) {
@@ -121,6 +123,6 @@ const UserController = {
             message : 'user successfully deleted',
             data : ref,
         });
-    }
+    }*/
 }
 export default UserController;

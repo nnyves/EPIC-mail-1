@@ -1,7 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server/server.js';
-import user from '../server/models/user'
 
 chai.should();
 chai.use(chaiHttp);
@@ -104,18 +103,31 @@ describe("GET /AllUsers", () => {
 
 
 /** ************************************************************************************************/
+//get a specific user
 describe("GET /User /<user-id>", () => {
     it("it should fetch a specific User​", (done) => {
         chai
             .request(app)
+            .get("/api/v1/user/df2b3988-c184-427e-8752-24bf38d865cf")
+            .end((err, res) => {
+                res.body.should.property("status").eql(200);
+                res.body.should.property("data").that.is.an("object");
+                done();
+            });
+    });
+
+    it("once fail to fet user​", (done) => {
+        chai
+            .request(app)
             .get("/api/v1/user/23")
             .end((err, res) => {
-                res.body.should.property("status").eql(400);
+                res.body.should.property("status").eql(404);
                 res.body.should.property("data").that.is.an("Array");
                 done();
             });
     });
 });
+
 
 
 //create email
@@ -188,10 +200,45 @@ describe("GET /email /<email-id>", () => {
                 done();
             });
     });
+    it("once fail to fetch s specific email", (done) => {
+        chai
+            .request(app)
+            .get("/api/v1/email/10")
+            .end((err, res) => {
+                res.body.should.property("status").eql(400);
+                res.body.should.property("data").that.is.an("Array");
+                done();
+            });
+    });
 });
 
 /************************************************************************ */
+//get email by status
+//get a specific Email
 
+describe("GET /email /<email-status>", () => {
+    it("it should fetch a specific Emails​", (done) => {
+        chai
+            .request(app)
+            .get("/api/v1/email/sent")
+            .end((err, res) => {
+                res.body.should.property("status").eql(200);
+                res.body.should.property("data").that.is.an("Array");
+                done();
+            });
+    });
+    it("once fail it should bring error od 404​", (done) => {
+        chai
+            .request(app)
+            .get("/api/v1/email/sent")
+            .end((err, res) => {
+                res.body.should.property("status").eql(404);
+                res.body.should.property("data").that.is.an("Array");
+                done();
+            });
+    });
+});
+/*********************************************************************** */
 // Update Email
 describe('update /Email', () => {
     it('it should error message with status code of 404', (done) => {
@@ -222,7 +269,7 @@ describe('update /Email', () => {
 });
 
 /******************************************************************************* */
-///deleting user
+/*//deleting user
 describe('/Delete a User', () => {
     it('it should delete User', (done) => {
         chai
@@ -248,8 +295,10 @@ describe('/Delete a User', () => {
                 done();
             });
     });
-});
-// Deleting Email
+});*/
+
+
+/* Deleting Email
 describe('/Delete a Email', () => {
     it('it should delete Email', (done) => {
         chai
@@ -265,7 +314,7 @@ describe('/Delete a Email', () => {
             });
     });
     it('it should error message with status code of 400', (done) => {
-        
+
         chai
             .request(app)
             .delete('/api/v1/email/e3a8d317-fde3-4950-b507-4d590179cefc')
@@ -275,4 +324,4 @@ describe('/Delete a Email', () => {
                 done();
             });
     });
-});
+});*/

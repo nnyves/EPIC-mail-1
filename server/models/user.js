@@ -5,6 +5,8 @@ class User {
 
     constructor() {
         this.users = [
+
+
             {
                 "id": "df2b3988-c184-427e-8752-24bf38d865cf",
                 "firstName": "abc",
@@ -51,6 +53,8 @@ class User {
         return this.users;
     }
 
+
+    /*
     update(id, data) {
         const user = this.findUser(id);
         const index = this.users.indexOf(user);
@@ -61,12 +65,12 @@ class User {
         this.users[index].modifiedDate = moment().format('LL');
         return this.users[index];
     }
-
+    //deleting user
     delete(id) {
         const user = this.findUser(id);
         const index = this.users.indexOf(user);
         this.users.splice(index, 1);
         return {};
-    }
+    }*/
 }
 export default new User();
