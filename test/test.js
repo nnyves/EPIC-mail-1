@@ -213,7 +213,6 @@ describe("GET /email /<email-id>", () => {
 //get email by status
 
 describe("GET /email /<email-status>", () => {
-
     it("once fail it should bring error od 404​", (done) => {
         chai
             .request(app)

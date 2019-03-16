@@ -1,6 +1,7 @@
 import Auth from '../helpers/user';
 import User from '../models/user';
 import Joi from 'joi';
+import email from '../models/email'
 
 const UserController = {
 
@@ -17,6 +18,15 @@ const UserController = {
         if (result.error) {
             return res.status(400).send(result.error.details[0].message);
         };
+        const data = req.body;
+        const email = User.signUp(data);
+
+        if (email) {
+            return res.status(400).send({
+                status : 400,
+                'message' : 'this Email is already registered'
+            });
+        }
 
         const token = Auth.generateToken(req.body.id);
         const user = User.create(req.body);
@@ -39,12 +49,12 @@ const UserController = {
             if (user.password !== req.body.password)
                 return res.status(400).send({
                     status : 400,
-                    'message' : 'incorrect password'
+                    'message' : 'incorrect password or email'
             });
             else{
                 return res.status(200).send({
                     status : 200,
-                    message : 'incorrect password or email',
+                    message : 'you have successful logged-in',
                     token : token,
                     data : user,
                 });
@@ -58,7 +68,6 @@ const UserController = {
         }
 
     },
-
 
     getAll(req, res) {
         const users = User.findAll();

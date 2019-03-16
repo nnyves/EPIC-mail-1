@@ -42,6 +42,11 @@ class User {
         return newUser
     }
 
+    //checking whether email is registered
+
+    signUp(data) {
+        return  this.users.find(user => user.email === data.email);
+    }
     login(data) {
         return  this.users.find(user => user.email === data.email);
     }

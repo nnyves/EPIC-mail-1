@@ -28,7 +28,7 @@ const EmailController = {
         });
     },
 
-
+//get all emails
     getAll(req, res) {
         const email = Email.findAll(req, res);
         if (!email){
@@ -92,7 +92,7 @@ const EmailController = {
         });
     }
 },
-
+    //delete a specific email
     delete(req, res) {
         const email = Email.findEmail(req.params.id);
         if (!email) {
