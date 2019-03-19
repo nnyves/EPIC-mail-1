@@ -21,7 +21,7 @@ app.put('/api/v1/email/:id', Email.update);
 app.delete('/api/v1/email/:id', Email.delete);
 
 
-const port = process.env.PORT || 4310;
+const port = process.env.PORT || 4520;
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
