@@ -18,12 +18,10 @@ const drop = () => {
     const usersTable = "DROP TABLE IF EXISTS users CASCADE";
     const messagesTable = "DROP TABLE IF EXISTS messages CASCADE";
     const inboxTable = "DROP TABLE IF EXISTS inbox CASCADE";
-    const sentTable = "DROP TABLE IF EXISTS sent CASCADE";
     const groupsTable = "DROP TABLE IF EXISTS groups CASCADE";
     const groupMemberTable = "DROP TABLE IF EXISTS groupMembers CASCADE";
-    const smsTable = "DROP TABLE IF EXISTS sms CASCADE";
     const resetCode = "DROP TABLE IF EXISTS resetCode CASCADE";
-    const dropTables = `${usersTable};${messagesTable};${inboxTable};${sentTable};${groupsTable};${groupMemberTable};${smsTable};${resetCode}`;
+    const dropTables = `${usersTable};${messagesTable};${inboxTable};${groupsTable};${groupMemberTable}`;
 
 pool.query(`${dropTables}`, err => {
     if(err){
