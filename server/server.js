@@ -20,6 +20,11 @@ app.get('/api/v1/email/:id', Email.getEmail);
 app.put('/api/v1/email/:id', Email.update);
 app.delete('/api/v1/email/:id', Email.delete);
 
+app.post('/api/v1/groups', Email.createGroup);
+app.get('api/v1/groups', Email.getAllGroup);
+app.get('/api/v1/group/:id', Email.getGroup);
+app.put('/api/v1/group/:id', Email.update);
+app.delete('/api/v1/group/:id', Email.deleteGroup);
 
 const port = process.env.PORT || 4520;
 app.listen(port, () => {
