@@ -3,7 +3,7 @@
 import pg from "pg";
 
 const pool = new pg.Pool({
-    connectionString: "postgres://postgres:postgres@localhost:5432/epic"
+    connectionString: "postgres://postgres:postgres@localhost:5432/epic-mail"
 });
 
 // Conect database
@@ -14,24 +14,7 @@ pool.on("connect",(err, res) => {
 
 
 
-const drop = () => {
-    const usersTable = "DROP TABLE IF EXISTS users CASCADE";
-    const messagesTable = "DROP TABLE IF EXISTS messages CASCADE";
-    const inboxTable = "DROP TABLE IF EXISTS inbox CASCADE";
-    const groupsTable = "DROP TABLE IF EXISTS groups CASCADE";
-    const groupMemberTable = "DROP TABLE IF EXISTS groupMembers CASCADE";
-    const resetCode = "DROP TABLE IF EXISTS resetCode CASCADE";
-    const dropTables = `${usersTable};${messagesTable};${inboxTable};${groupsTable};${groupMemberTable}`;
-
-pool.query(`${dropTables}`, err => {
-    if(err){
-        console.log(err);
-    } else {
-        console.log("All database tables have been dropped successfully!");
-    }
-    pool.end();
-    });
-};
+/*
 
 const truncate = () => {
     const messagesTable = "TRUNCATE table messages restart identity";
@@ -48,10 +31,10 @@ pool.query(`${truncateTables}`, err => {
     pool.end();
     });
 };
+*/
 
-const create = () => {
     // user table
-    const usersTable = `CREATE TABLE IF NOT EXISTS
+    export const usersTable = `CREATE TABLE IF NOT EXISTS
     users(
         "id" UUID PRIMARY KEY,
         "firstname" VARCHAR(100) NOT NULL,
@@ -61,8 +44,19 @@ const create = () => {
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
 
+    export const insertUsers = `INSERT INTO users(
+        firstname,
+        lastname,
+        email,
+        password,
+        createdon
+        ) VALUES($1, $2, $3, $4)`
+
+
+
+/********************************************************************************** */
     // message table
-    const emailTable = `CREATE TABLE IF NOT EXISTS
+    export const emailTable = `CREATE TABLE IF NOT EXISTS
     emails(
         id SERIAL PRIMARY KEY,
         "subject" VARCHAR(100) NOT NULL,
@@ -73,25 +67,44 @@ const create = () => {
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
 
+    export const insertEmails = `INSERT INTO emails(
+        subject,
+        message,
+        status,
+        receivedid,
+        parentmessageid,
+        createdon
+    ) VALUES($1, $2, $3, $4, $5, $6)`;
+
+/********************************************************************************************* */
     // inbox table
-    const inboxTable = `CREATE TABLE IF NOT EXISTS
+    export const inboxTable = `CREATE TABLE IF NOT EXISTS
     inbox(
         id SERIAL PRIMARY KEY,
         "receiverid" INTEGER NOT NULL,
         "messageid" INTEGER NOT NULL,
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
+    export const insertInbox = `INSERT INTO inbox(
+        receiverid,
+        messageid,
+        createdon
+    ) VALUES($1, $2, $3)`;
 
+
+/****************************************************************************************** */
     // group table
-    const groupTable = `CREATE TABLE IF NOT EXISTS
+    export const groupTable = `CREATE TABLE IF NOT EXISTS
     groups(
         id SERIAL PRIMARY KEY,
         "name" VARCHAR(600) UNIQUE NOT NULL,
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`;
 
+
+/*********************************************************************************** */
     // group member table
-    const groupMembersTable = `CREATE TABLE IF NOT EXISTS
+    export const groupMembersTable = `CREATE TABLE IF NOT EXISTS
         groupMembers(
         id SERIAL PRIMARY KEY,
         "userid" INTEGER NOT NULL,
@@ -99,20 +112,19 @@ const create = () => {
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
 
-const migrationQueries = `${usersTable}`;
-    pool.query(`${migrationQueries}`, (err, res) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Database migration successfully executed!");
-        }
-        pool.end();
-    });
-};
+    export const insertGroupMembers = `INSERT INTO emails(
+        userid,
+        userrole,
+        createdon
+    ) VALUES($1, $2, $3)`;
 
-export { drop, create, truncate, pool };
+/****************************************************************************************** */
+    export const selectUsers = `SELECT * FROM users`;
+    export const selectUser = `SELECT * FROM users WHERE id = $1`;
 
-// eslint-disable-next-line eol-last
-require("make-runnable/custom")({
-    printOutputFrame: false
-});
+    export const selectEmails = `SELECT * FROM emails`;
+    export const selectEmail = `SELECT * FROM email WHERE id = $1`;
+
+
+
+/****************************************************************************************** */
