@@ -1,10 +1,6 @@
 import Auth from '../helpers/user';
-import User from '../models/user';
 import Joi from 'joi';
 import pg from 'pg';
-import {insertUsers, selectUser} from '../Database/createTables';
-//import email from '../models/email'
-///import user from '../../../../andela/EPIC-mail/server/models/user'
 const pool = new pg.Pool({
     connectionString: "postgres://postgres:postgres@localhost:5432/epic"
 });
@@ -25,15 +21,7 @@ const UserController = {
             return res.status(400).send(result.error.details[0].message);
         };
         const data = req.body;
-        //const email = User.signUp(data);
 
-        /*
-        if (user) {
-            return res.status(400).send({
-                status : 400,
-                'message' : 'this User is already registered'
-            });
-        }*/
         pool.query(`INSERT INTO users(
             firstname,
             lastname,
@@ -66,7 +54,6 @@ const UserController = {
                 }
             });
 
-        
     },
 
     login(req, res) {
@@ -98,7 +85,6 @@ const UserController = {
         }})
 
     },
-////////////////////////////////////////////////////////////////////////////////////////////////////
     getAll(req, res) {
         pool.query(`SELECT * FROM users`).then( ({users}) => {
         //const users = User.findAll();

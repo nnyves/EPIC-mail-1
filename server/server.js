@@ -28,7 +28,7 @@ app.get('/api/v1/group/:id', Email.getGroup);
 app.put('/api/v1/group/:id', Email.updateGroup);
 app.delete('/api/v1/group/:id', Email.deleteGroup);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6020;
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });

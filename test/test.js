@@ -30,10 +30,10 @@ describe('POST/ user', () => {
             .request(app)
             .post("/api/v1/users")
             .send({
-                "firstName" : "1222",
-                "lastName" : "kenny",
-                "email" : "ket@andela.com",
-                "password" : "000000"
+                "firstName":"snyder",
+                "lastName":"andela",
+                "email": "snyderr@gmail.com",
+                "password":"abc",
             })
 
             .end((err, res) => {
@@ -83,8 +83,7 @@ describe('LOGIN / user', () => {
     });
 });
 
-/******************************************************** */
-
+/*
 //fetch all users
 describe("GET /AllUsers", () => {
     it("it should fetch all User​", (done) => {
@@ -98,11 +97,12 @@ describe("GET /AllUsers", () => {
             });
     });
 });
-
-
+*/
 /** ************************************************************************************************/
 //get a specific user
 describe("GET /User /<user-id>", () => {
+
+    /*
     it("it should fetch a specific User​", (done) => {
         chai
             .request(app)
