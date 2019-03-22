@@ -3,15 +3,13 @@
 import pg from "pg";
 
 const pool = new pg.Pool({
-    connectionString: "postgres://postgres:postgres@localhost:5432/epic-mail"
+    connectionString: "postgres://postgres:postgres@localhost:5432/epic"
 });
 
 // Conect database
 pool.on("connect",(err, res) => {
     console.log("Connected")
 });
-
-
 
 
 /*
@@ -59,30 +57,32 @@ pool.query(`${truncateTables}`, err => {
     export const emailTable = `CREATE TABLE IF NOT EXISTS
     emails(
         id SERIAL PRIMARY KEY,
+        "email" TEXT,
         "subject" VARCHAR(100) NOT NULL,
         "message" VARCHAR(3000) NOT NULL,
         "status" TEXT NOT NULL,
-        "receiverid" INTERGER NOT NULL,
+        "receiverid" NUMERIC ,
         "parentmessageid" INTEGER DEFAULT 0,
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
 
     export const insertEmails = `INSERT INTO emails(
+        email,
         subject,
         message,
         status,
-        receivedid,
+        receiverid,
         parentmessageid,
-        createdon
-    ) VALUES($1, $2, $3, $4, $5, $6)`;
+        senderId
+    ) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
 
 /********************************************************************************************* */
     // inbox table
     export const inboxTable = `CREATE TABLE IF NOT EXISTS
     inbox(
         id SERIAL PRIMARY KEY,
-        "receiverid" INTEGER NOT NULL,
-        "messageid" INTEGER NOT NULL,
+        "receiverid" NUMERIC  NOT NULL,
+        "messageid" NUMERIC NOT NULL,
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
     export const insertInbox = `INSERT INTO inbox(
@@ -107,10 +107,11 @@ pool.query(`${truncateTables}`, err => {
     export const groupMembersTable = `CREATE TABLE IF NOT EXISTS
         groupMembers(
         id SERIAL PRIMARY KEY,
-        "userid" INTEGER NOT NULL,
+        "userid" NUMERIC NOT NULL,
         "userrole" VARCHAR(60) NOT NULL,
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
+
 
     export const insertGroupMembers = `INSERT INTO emails(
         userid,
@@ -120,7 +121,7 @@ pool.query(`${truncateTables}`, err => {
 
 /****************************************************************************************** */
     export const selectUsers = `SELECT * FROM users`;
-    export const selectUser = `SELECT * FROM users WHERE id = $1`;
+    export const selectUser = `SELECT * FROM users WHERE email = $1`;
 
     export const selectEmails = `SELECT * FROM emails`;
     export const selectEmail = `SELECT * FROM email WHERE id = $1`;

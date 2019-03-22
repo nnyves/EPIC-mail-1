@@ -12,6 +12,11 @@ const Helper = {
         SECRET, { expiresIn: '7d' }
         );
     return token;
+    },
+
+    decode (data) {
+        const token = jwt.decode(data,SECRET);
+        return token;
     }
 }
 

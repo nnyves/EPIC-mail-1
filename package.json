@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node ./server/server.js",
-    "test": " nyc --reporter=html --reporter=text  mocha --require @babel/polyfill --require @babel/register ./test/test.js  --exit",
+    "start": "babel-watch ./server/server.js",
+    "test": "npm run db:create && nyc --reporter=html --reporter=text  mocha --require @babel/polyfill --require @babel/register ./test/test.js  --exit",
     "build": "babel server/server.js --out-dir build",
-    "coverage" : "npm test && nyc report --reporter=text-lcov |coveralls "
+    "db": "npm run db:create && babel-node ./server/database/queries.js create",
+    "coverage": "npm test && nyc report --reporter=text-lcov |coveralls "
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +33,7 @@
     "mocha-lcov-reporter": "^1.3.0",
     "moment": "^2.24.0",
     "nyc": "^13.3.0",
+    "pg": "^7.9.0",
     "uuid": "^3.3.2"
   }
 }
