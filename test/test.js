@@ -32,7 +32,7 @@ describe('POST/ user', () => {
             .send({
                 "firstName":"snyder",
                 "lastName":"andela",
-                "email": "snyderr@gmail.com",
+                "email": "abc@gmail.com",
                 "password":"abc",
             })
 
@@ -70,7 +70,7 @@ describe('LOGIN / user', () => {
             .post("/api/v1/login")
             .send({
                 "email" : "ket@andela.com",
-	            "password" : "000000",
+                "password" : "000000",
             })
 
             .end((err, res) => {
@@ -83,7 +83,7 @@ describe('LOGIN / user', () => {
     });
 });
 
-/*
+
 //fetch all users
 describe("GET /AllUsers", () => {
     it("it should fetch all User​", (done) => {
@@ -92,17 +92,18 @@ describe("GET /AllUsers", () => {
             .get("/api/v1/users")
             .end((err, res) => {
                 res.body.should.property("status").eql(200);
+                expect(res.body).to.have.property("data");
                 res.body.should.property("data").that.is.an("array");
                 done();
             });
     });
 });
-*/
+
 /** ************************************************************************************************/
 //get a specific user
 describe("GET /User /<user-id>", () => {
 
-    /*
+
     it("it should fetch a specific User​", (done) => {
         chai
             .request(app)
@@ -150,10 +151,12 @@ describe("POST /email", () => {
             .request(app)
             .post("/api/v1/email")
             .send({
-                "parentMessageId" : "1234",
-	            "subject" : 123,
-	            "message" : " this is my new email",
-	            "status" : "sent"
+                "subject" : "request",
+	            "message" : "hello there",
+              	"status" : "sent",
+	            "receiverid" : 24,
+	            "parentmessageid" : "13",
+	            "email": "abdc@gmail.com"
             })
             .end((err, res) => {
                 console.log(res.body);
@@ -190,7 +193,7 @@ describe("GET /email /<email-id>", () => {
     it("it should fetch a specific Emails​", (done) => {
         chai
             .request(app)
-            .get("/api/v1/email/e3a8d317-fde3-4950-b507-4d590179cefc")
+            .get("/api/v1/email/16")
             .end((err, res) => {
                 res.body.should.property("status").eql(200);
                 res.body.should.property("data").that.is.an("Array");
