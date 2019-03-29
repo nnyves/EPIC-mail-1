@@ -43,7 +43,7 @@ const UserController = {
             message : 'user has been created',
             data : [{
                 token,
-                //user
+                user
             }],
         });
                 } else {

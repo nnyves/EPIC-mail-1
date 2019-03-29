@@ -28,6 +28,7 @@ const EmailController = {
             parentmessageid: Joi.number().required(),
             status: Joi.string().required(),
             receiverid: Joi.number(),
+            senderid: Joi.number(),
             email: Joi.required(),
         };
 
@@ -43,7 +44,7 @@ const EmailController = {
             req.body.status,
             req.body.receiverid,
             req.body.parentmessageid,
-        senderId.userId]).then(({ rows }) => {
+            senderId.userId]).then(({ rows }) => {
                 return res.status(200).send({
                     status : 200,
                     'message' : 'Email has been successful created',

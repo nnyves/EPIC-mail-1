@@ -108,6 +108,7 @@ pool.query(`${truncateTables}`, err => {
         groupMembers(
         id SERIAL PRIMARY KEY,
         "userid" NUMERIC NOT NULL,
+        "groupid" NUMERIC NOT NULL,
         "userrole" VARCHAR(60) NOT NULL,
         "createdon" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`;
@@ -115,6 +116,7 @@ pool.query(`${truncateTables}`, err => {
 
     export const insertGroupMembers = `INSERT INTO emails(
         userid,
+        groupid,
         userrole,
         createdon
     ) VALUES($1, $2, $3)`;
